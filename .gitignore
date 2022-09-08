@@ -22,3 +22,4 @@ _testmain.go
 *.exe
 /somebins.csv
 /drakaea
+.idea
