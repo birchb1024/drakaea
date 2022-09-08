@@ -34,14 +34,14 @@ func Cardtype(ccn string) string {
 		if ccnLen == 15 {
 			ccType = "AmericanExpress"
 		}
-	 } else if strings.HasPrefix(ccn, "300") ||
-			strings.HasPrefix(ccn, "301") ||
-			strings.HasPrefix(ccn, "302") ||
-			strings.HasPrefix(ccn, "303") ||
-			strings.HasPrefix(ccn, "304") ||
-			strings.HasPrefix(ccn, "305") ||
-			strings.HasPrefix(ccn, "36") ||
-			strings.HasPrefix(ccn, "38") {
+	} else if strings.HasPrefix(ccn, "300") ||
+		strings.HasPrefix(ccn, "301") ||
+		strings.HasPrefix(ccn, "302") ||
+		strings.HasPrefix(ccn, "303") ||
+		strings.HasPrefix(ccn, "304") ||
+		strings.HasPrefix(ccn, "305") ||
+		strings.HasPrefix(ccn, "36") ||
+		strings.HasPrefix(ccn, "38") {
 		if ccnLen == 14 {
 			ccType = "DinersClub/Carteblanche"
 		}
@@ -50,14 +50,14 @@ func Cardtype(ccn string) string {
 			ccType = "Discover"
 		}
 	} else if strings.HasPrefix(ccn, "2014") ||
-			strings.HasPrefix(ccn, "2149") {
+		strings.HasPrefix(ccn, "2149") {
 		ccType = "enRoute"
 	} else if strings.HasPrefix(ccn, "3") {
 		if ccnLen == 16 {
 			ccType = "JCB"
 		}
 	} else if strings.HasPrefix(ccn, "2131") ||
-			strings.HasPrefix(ccn, "1800") {
+		strings.HasPrefix(ccn, "1800") {
 		if ccnLen == 15 {
 			ccType = "JCB"
 		}
@@ -65,14 +65,12 @@ func Cardtype(ccn string) string {
 	return ccType
 }
 
-
 func GenerateLastDigit(ccn string) string {
-    ccn = Clean(ccn)
+	ccn = Clean(ccn)
 	ccnLen := len(ccn)
 
 	if ccnLen == 8 || ccnLen == 9 {
-		fmt.Println("invalid operation")
-		os.Exit(2)
+		panic(fmt.Errorf("invalid operation on:", ccn))
 	}
 
 	sum := 0
@@ -93,7 +91,7 @@ func GenerateLastDigit(ccn string) string {
 			sum += weight - 9
 		}
 	}
-	lastDigit := (10 - sum % 10) % 10
+	lastDigit := (10 - sum%10) % 10
 	lastDigitStr := strconv.Itoa(lastDigit)
 	return lastDigitStr
 }

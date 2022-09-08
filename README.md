@@ -1,59 +1,41 @@
-go-business-creditcard
+drakaea
 ======================
 
-Validate/generate credit card checksums/names.
+Generate test credit cards for provided prefixes (BIN numbers).
 
-The go-business-creditcard package is a simple port based on the
-[Business::CreditCard](http://search.cpan.org/dist/Business-CreditCard/) Perl module
-by [Ivan Kohler](http://search.cpan.org/~ivan/).
+Based on the go-business-creditcard package (github.com/dsparling/go-business-creditcard)
 
 ## Installation
 
-Simply install the package to your [$GOPATH](http://code.google.com/p/go-wiki/wiki/GOPATH "GOPATH") with the [go tool](http://golang.org/cmd/go/ "go command") from shell:
 ```bash
-$ go get github.com/dsparling/go-business-creditcard
+$ git clone git@github.com:birchb1024/drakaea.git
+$ cd drakaea
+$ go build cmd/drakaea.go
+$ ./drakaea
 ```
-Make sure [Git is installed](http://git-scm.com/downloads) on your machine and in your system's `PATH`.
 
-*`go get` installs the latest tagged release*
+## Usage
 
-## Examples
+`drakaea` expects BIN number prefixes on stdin one per line. The remainder of the 
+card number os padded with '1's followed by the Luhn checksum
+For example:
 
-[Example.go](https://github.com/dsparling/go-business-creditcard/blob/master/examples/example.go) is a sort of hello world for go-business-creditcard and should get you started for the barebones necessities of using the package.
+```shell
+$ tail -3 somebins.csv
+549123
+552123
+554123
+$ tail -3 somebins.csv | ./drakaea
+5491 2311 1111 1110	 MasterCard
+5521 2311 1111 1111	 MasterCard
+5541 2311 1111 1111	 MasterCard
+```
 
-	cd examples
-	go run example.go
+## Drakaea (Wikipedia)
 
-## Validate
+*Pouyannian mimicry*
 
-	// true
-	fmt.Println(creditcard.Validate("4111111111111111"))
-	fmt.Println(creditcard.Validate("4111 1111 1111 1111"))
-	fmt.Println(creditcard.Validate("4111-1111-1111-1111"))
-
-	// false
-	fmt.Println(creditcard.Validate("1111111111111111"))
-	fmt.Println(creditcard.Validate("1111 1111 1111 1111"))
-	fmt.Println(creditcard.Validate("1111-1111-1111-1111"))
-
-## Cardtype
-
-	// Visa
-	fmt.Println(creditcard.Cardtype("4111111111111111"))
-	// MasterCard
-	fmt.Println(creditcard.Cardtype("5555555555554444"))
-	// AmericanExpress
-	fmt.Println(creditcard.Cardtype("378282246310005"))
-	// DinersClub/Carteblanche
-	fmt.Println(creditcard.Cardtype("30569309025904"))
-	// Discover
-	fmt.Println(creditcard.Cardtype("6011111111111117"))
-	// EnRoute
-	fmt.Println(creditcard.Cardtype("201400000000009"))
-	// JCB
-	fmt.Println(creditcard.Cardtype("3530111333300000"))
-
-## GenerateLastDigit
-
-	// Returns '9' - 5276440065421319
-	fmt.Println(creditcard.GenerateLastDigit("5276 4400 6542 131"))
+Many plants have evolved to appear like other organisms, most commonly insects. This can have wide-ranging benefits including increasing pollination. 
+In Pouyannian mimicry, flowers mimic a potential female mate visually, but the key stimuli are often chemical and tactile. The hammer orchid 
+(Drakaea spp., an endangered genus of orchid that is native to Australia) is one of the most notable examples. The orchid has both 
+visual and olfactory mimics of a female wasp to lure males to both deposit and pick up pollen.[13][better source needed]
