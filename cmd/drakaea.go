@@ -11,6 +11,7 @@ import (
 	"github.com/birchb1024/drakaea"
 	"math/rand"
 	"os"
+	"strconv"
 	"unicode"
 )
 
@@ -80,8 +81,11 @@ func main() {
 			panic(fmt.Errorf("Too many digits in line: %v", line))
 		}
 		card := stripLine(line)
+		for i := len(card); i < 12; i++ {
+			card = card + "1"
+		}
 		for i := len(card); i < 15; i++ {
-			card = card + "1" // strconv.Itoa(rand.Intn(9))
+			card = card + strconv.Itoa(rand.Intn(9))
 		}
 		card = card + creditcard.GenerateLastDigit(card)
 		if !creditcard.Validate(card) {

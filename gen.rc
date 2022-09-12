@@ -1,0 +1,26 @@
+#!/usr/local/bin/rc
+#
+# Convert output from a PostgresSQL Query to Card Numbers
+#
+# Input Example
+#
+#   499977 | visa        | NZL
+#   510098 | mastercard  | AUS
+#
+# Output Example
+#
+#   499977 visa NZL 4999 7711 1111 1119
+#   510098 mastercard AUS 5100 9811 1111 1117
+#
+#
+
+flag e +
+#flag x +
+
+bins = ``($nl){gawk 'BEGIN{FS="|";OFS=" "}{gsub(/ /, ""); print $1,$2,$3}'}
+for( X in $bins) {
+  b = $X(1)
+  card = ``($nl $tab){echo $b | ./drakaea}
+  #whatis card
+  echo $X $card(1)
+}
